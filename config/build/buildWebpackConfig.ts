@@ -19,7 +19,7 @@ export const BuildWebpackConfig = (options: BuildOptions): WebpackConfiguration 
 			path: paths.build,
 			clean: true,
 			publicPath: 'auto',
-			uniqueName: 'unishare-friends',
+			uniqueName: 'unishare-disk',
 		},
 		mode: mode,
 		plugins: BuildPlugins(options),

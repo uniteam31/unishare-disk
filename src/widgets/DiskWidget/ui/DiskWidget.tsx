@@ -1,5 +1,9 @@
-import { Widget } from '@uniteam31/uni-shared-ui';
+import { Widget } from 'shared/ui';
 
 export const DiskWidget = () => {
-	return <Widget title={'Диск'}>Диск</Widget>;
+	return (
+		<Widget title={'Диск'} size={'medium'} to={'/disk'}>
+			Диск
+		</Widget>
+	);
 };
