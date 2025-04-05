@@ -16,6 +16,12 @@ export {
 	Divider,
 	//
 	Link,
+	//
+	Modal as ModalUI,
+	//
+	TextAlign,
 } from '@uniteam31/uni-shared-ui';
 
 export { Button } from '@radix-ui/themes';
+
+export { FormModalWrapper } from './FormModalWrapper';

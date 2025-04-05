@@ -1,0 +1,34 @@
+.FormModalWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: var(--medium-indent);
+	width: 300px;
+
+	.title {
+		margin-bottom: 20px;
+	}
+
+	//.submitButton {
+	//	height: 40px;
+	//	margin-bottom: 10px;
+	//	width: 100%;
+	//}
+	//
+	//.resetButton {
+	//	background-color: #fff;
+	//	border: 1px solid var(--mid-gray-bg-color);
+	//	color: #000;
+	//	height: 40px;
+	//	width: 100%;
+	//
+	//	&:disabled {
+	//		background-color: var(--mid-gray-bg-color);
+	//		color: #fff;
+	//	}
+	//}
+
+	.error {
+		margin-bottom: var(--medium-indent);
+	}
+}

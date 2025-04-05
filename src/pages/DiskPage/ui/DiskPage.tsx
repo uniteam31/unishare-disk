@@ -1,9 +1,12 @@
+import { Files } from 'widgets/Files';
 import { Button } from 'shared/ui';
 
 export const DiskPage = () => {
 	return (
 		<div>
-			disk page <Button>Radix</Button>
+			<Button>Radix</Button>
+
+			<Files />
 		</div>
 	);
 };
