@@ -1,17 +1,20 @@
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { Tooltip } from '@radix-ui/themes';
+import classNames from 'classnames';
 import type { CSSProperties } from 'react';
 import FileIcon from 'shared/assets/icons/file.svg';
 import FolderIcon from 'shared/assets/icons/folder.svg';
 import type { IFile } from '../model/file';
 import s from './FileObject.module.scss';
 
+// TODO: надо бы добавить поле selectable, чтобы на мобилках кликать 1 раз
 type Props = IFile & {
 	onClick?: () => void;
+	isSelected?: boolean;
 };
 
 export const FileObject = (props: Props) => {
-	const { id, name, onClick, type, url } = props;
+	const { id, name, onClick, type, url, isSelected } = props;
 
 	const {
 		attributes,
@@ -21,7 +24,7 @@ export const FileObject = (props: Props) => {
 	} = useDraggable({ id });
 
 	const handleClick = () => {
-		if (url) {
+		if (url && isSelected) {
 			window.location.href = url;
 			return;
 		}
@@ -56,7 +59,7 @@ export const FileObject = (props: Props) => {
 	return (
 		<div
 			ref={setNodeRef}
-			className={s.container}
+			className={classNames(s.container, isSelected && s.selected)}
 			style={dynamicStyle}
 			{...listeners}
 			{...attributes}

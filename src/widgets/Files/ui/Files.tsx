@@ -1,5 +1,6 @@
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { mutate } from 'swr';
 import { useMoveFile } from 'features/MoveFile';
@@ -16,6 +17,9 @@ type Props = {
 
 export const Files = (props: Props) => {
 	const { currentFilesTree } = props;
+
+	const [selectedFilesIDs, setSelectedFilesIDs] = useState<IFile['id'][]>([]);
+	const [clickedFileID, setClickedFileID] = useState<IFile['id'] | null>();
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -36,8 +40,31 @@ export const Files = (props: Props) => {
 		}
 	};
 
-	const handleFileClick = (name: string) => {
-		navigate(`${location.pathname}/${name}`);
+	/** Выставляется таймер для двойного клика на файл */
+	useEffect(() => {
+		const clickTimer = setTimeout(() => {
+			setClickedFileID(null);
+		}, 500);
+
+		return () => clearTimeout(clickTimer);
+	}, [clickedFileID]);
+
+	/** Имитирует двойной клик на файл */
+	const handleFileClick = (file: IFile) => {
+		setClickedFileID(file.id);
+
+		if (!selectedFilesIDs.includes(file.id)) {
+			setSelectedFilesIDs([file.id]);
+		}
+
+		if (clickedFileID === file.id) {
+			navigate(`${location.pathname}/${file.name}`);
+		}
+	};
+
+	const handleClickOutsideFile = (event: MouseEvent<HTMLDivElement>) => {
+		event.preventDefault();
+		setSelectedFilesIDs([]);
 	};
 
 	const sensors = useSensors(
@@ -78,15 +105,16 @@ export const Files = (props: Props) => {
 		<DndContext onDragEnd={handleDragEnd} sensors={sensors}>
 			{currentFilesTree && (
 				<ContextMenu items={contextMenuItems}>
-					<div style={{ width: '100%', height: '100%' }}>
+					<div style={{ width: '100%', height: '100%' }} onClick={handleClickOutsideFile}>
 						<div>
-							<Flex wrap={'wrap'} onContextMenu={(event) => event.stopPropagation()}>
+							<Flex wrap={'wrap'}>
 								{currentFilesTree.children.map((file) => (
 									<ContextMenu items={fileContext} key={file.id}>
-										<div>
+										<div onClick={(event) => event.stopPropagation()}>
 											<FileObject
 												{...file}
-												onClick={() => handleFileClick(file.name)}
+												isSelected={selectedFilesIDs.includes(file.id)}
+												onClick={() => handleFileClick(file)}
 											/>
 										</div>
 									</ContextMenu>

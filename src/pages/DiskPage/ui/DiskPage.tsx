@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { Files } from 'widgets/Files';
 import { FilesActions } from 'widgets/FilesActions';
-import { FilesBreadcrumbs } from 'widgets/FilesBreadcrumbs/ui/FilesBreadcrumbs';
+import { FilesBreadcrumbs } from 'widgets/FilesBreadcrumbs';
 import { useGetCurrentSpaceFilesTree } from 'entities/FileObject';
 import type { IFile } from 'entities/FileObject';
 import { getRelativeDiskPathname } from 'shared/lib';
@@ -32,7 +32,7 @@ export const DiskPage = () => {
 	return (
 		<div className={s.DiskPage}>
 			<Flex height={'100%'}>
-				<FilesActions />
+				<FilesActions currentFilesTree={currentFilesTree} />
 
 				<Separator orientation={'vertical'} size={'4'} />
 
