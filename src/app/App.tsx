@@ -12,18 +12,18 @@ const App = () => {
 
 	if (isRouter) {
 		return (
-			<Theme>
+			<Theme style={{ height: '100%', minHeight: 'unset' }}>
 				<DiskPage />
 			</Theme>
 		);
 	}
 
 	return (
-		<BrowserRouter>
-			<Theme>
+		<Theme style={{ height: '100%', minHeight: 'unset' }}>
+			<BrowserRouter>
 				<DiskPage />
-			</Theme>
-		</BrowserRouter>
+			</BrowserRouter>
+		</Theme>
 	);
 };
 
