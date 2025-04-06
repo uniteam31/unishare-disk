@@ -1,15 +1,15 @@
 import { useDraggable, useDroppable } from '@dnd-kit/core';
-import type { PropsWithChildren } from 'react';
+import type { CSSProperties } from 'react';
+import FileIcon from 'shared/assets/icons/file.svg';
+import FolderIcon from 'shared/assets/icons/folder.svg';
 import type { IFile } from '../model/file';
 
-// TODO: extend
-type Props = {
-	id: IFile['id'];
+type Props = IFile & {
 	onClick?: () => void;
 };
 
-export const File = (props: PropsWithChildren<Props>) => {
-	const { id, children, onClick } = props;
+export const FileObject = (props: Props) => {
+	const { id, name, onClick, type } = props;
 
 	const {
 		attributes,
@@ -25,20 +25,23 @@ export const File = (props: PropsWithChildren<Props>) => {
 		setDroppableNodeRef(node);
 	};
 
-	const style = {
+	const style: CSSProperties = {
 		transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
 		padding: '8px',
 		margin: '4px',
-		border: '1px solid #ccc',
-		backgroundColor: isOver ? '#e0f7fa' : '#fff',
-		cursor: 'grab',
-		width: '200px',
-		height: '200px',
+		width: '100px',
+		display: 'flex',
+		opacity: isOver ? 0.3 : 1,
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'center',
 	};
 
 	return (
 		<div ref={setNodeRef} style={style} {...listeners} {...attributes} onClick={onClick}>
-			{children}
+			{type === 'folder' ? <FolderIcon /> : <FileIcon />}
+
+			{name}
 		</div>
 	);
 };

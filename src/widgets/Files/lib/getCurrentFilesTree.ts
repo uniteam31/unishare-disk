@@ -1,4 +1,4 @@
-import type { IFile } from 'entities/File';
+import type { IFile } from 'entities/FileObject';
 
 /**
  * @description Функция отдает файлы, которые доступны по текущей ссылке

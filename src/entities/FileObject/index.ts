@@ -1,4 +1,4 @@
-export { File } from './ui/File';
+export { FileObject } from './ui/FileObject';
 
 export { IFile } from './model/file';
 

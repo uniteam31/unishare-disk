@@ -1,4 +1,4 @@
-import type { IFile } from 'entities/File';
+import type { IFile } from 'entities/FileObject';
 import { IFolder } from 'entities/Folder';
 import { useApiRequest } from 'shared/hooks';
 import { sendApiRequest } from 'shared/lib';

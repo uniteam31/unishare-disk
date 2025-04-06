@@ -6,4 +6,6 @@ export interface IFile extends TMeta {
 	name: string;
 	ownerID: IUser['id'];
 	children: IFile[];
+	// TODO: сделать тип
+	type: string;
 }

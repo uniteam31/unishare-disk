@@ -1,3 +1,3 @@
-import type { IFile } from 'entities/File';
+import type { IFile } from 'entities/FileObject';
 
 export type TCreateFolderForm = Pick<IFile, 'name'>;

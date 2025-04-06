@@ -7,8 +7,8 @@ import { mutate } from 'swr';
 import { CreateFolder } from 'features/CreateFolder';
 import { useMoveFile } from 'features/MoveFile';
 import { UploadFile } from 'features/UploadFile';
-import { File, useGetCurrentSpaceFilesTree } from 'entities/File';
-import type { IFile } from 'entities/File';
+import { FileObject, useGetCurrentSpaceFilesTree } from 'entities/FileObject';
+import type { IFile } from 'entities/FileObject';
 import { getCurrentFiles } from '../lib/getCurrentFilesTree';
 import { getRelativeDiskPathname } from '../lib/getRelativeDiskPathname';
 
@@ -74,7 +74,7 @@ export const Files = () => {
 				<div style={{ display: 'flex', flexWrap: 'wrap' }}>
 					{currentFileTree.children.map((file) => (
 						<div key={file.id} onClick={() => handleFileClick(file.name)}>
-							<File id={file.id}>{file.name}</File>
+							<FileObject {...file} />
 						</div>
 					))}
 				</div>
