@@ -1,14 +1,20 @@
 import { Button } from '@radix-ui/themes';
-import type { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useUploadFileToCurrentSpace } from '../api/useUploadFileToCurrentSpace';
 import type { TUploadFileForm } from '../model/file';
 
-export const UploadFile = () => {
-	const { control, handleSubmit: handleContexSubmit } = useForm<TUploadFileForm>();
+type Props = {
+	parentID?: string;
+};
+
+export const UploadFile = (props: Props) => {
+	const { parentID } = props;
+
+	const { control, handleSubmit: handleContextSubmit } = useForm<TUploadFileForm>();
 
 	// TODO: loaders and errors
-	const { uploadFile } = useUploadFileToCurrentSpace();
+	const { uploadFile, uploadPercent } = useUploadFileToCurrentSpace();
 
 	const {
 		field: { value, onChange },
@@ -26,15 +32,17 @@ export const UploadFile = () => {
 
 	// TODO: then catch!
 	const handleSubmit = () => {
-		uploadFile({ file: value });
+		uploadFile({ file: value, parentID });
 	};
 
 	return (
-		<form onSubmit={handleContexSubmit(handleSubmit)}>
+		<form onSubmit={handleContextSubmit(handleSubmit)}>
 			{/* TODO: uncontrolled component! */}
 			<input type={'file'} onChange={handleChangeFile} />
 
-			<Button onClick={handleSubmit}>Send</Button>
+			<div>{uploadPercent}</div>
+
+			<Button>Send</Button>
 		</form>
 	);
 };

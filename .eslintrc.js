@@ -40,5 +40,6 @@ module.exports = {
 		'react-hooks/exhaustive-deps': 'error',
 		'react/display-name': 'off',
 		'react/prop-types': 'off',
+		'@typescript-eslint/no-explicit-any': 'warn',
 	},
 };

@@ -1,4 +1,4 @@
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
 import { Button } from '@radix-ui/themes';
 import { useEffect, useState } from 'react';
@@ -9,40 +9,11 @@ import { useMoveFile } from 'features/MoveFile';
 import { UploadFile } from 'features/UploadFile';
 import { File, useGetCurrentSpaceFilesTree } from 'entities/File';
 import type { IFile } from 'entities/File';
+import { getCurrentFiles } from '../lib/getCurrentFilesTree';
+import { getRelativeDiskPathname } from '../lib/getRelativeDiskPathname';
 
-// TODO: to lib
-const getCurrentFiles = (filesTree: IFile, currentLocation: string) => {
-	if (currentLocation === '') {
-		return filesTree;
-	}
-
-	const splittedCurrentLocation = currentLocation
-		.split('/')
-		.filter((segment) => Boolean(segment));
-
-	let currentFile = filesTree;
-
-	for (const segment of splittedCurrentLocation) {
-		// TODO: добавить file.type === folder
-		const nextFile = currentFile.children.find((file) => file.name === segment);
-
-		// TODO: выкидывать ошибку
-		if (!nextFile) {
-			console.warn('Путь не найден');
-			return;
-		}
-
-		currentFile = nextFile;
-	}
-
-	return currentFile;
-};
-
-const getRelativeDiskPathname = (pathname: string) => {
-	const splittedPathname = pathname.split('/');
-
-	return splittedPathname.slice(2, splittedPathname.length).join('/');
-};
+/** Минимальное расстояние в пикселях для активации drag */
+const MINIMAL_MOVE_DISTANCE = 10;
 
 export const Files = () => {
 	const location = useLocation();
@@ -84,9 +55,17 @@ export const Files = () => {
 		navigate(`${location.pathname}/${name}`);
 	};
 
+	const sensors = useSensors(
+		useSensor(PointerSensor, {
+			activationConstraint: {
+				distance: MINIMAL_MOVE_DISTANCE,
+			},
+		}),
+	);
+
 	return (
-		<DndContext onDragEnd={handleDragEnd}>
-			<UploadFile />
+		<DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+			<UploadFile parentID={currentFileTree?.id} />
 
 			<Button onClick={() => setIsOpen(true)}>Создать папку</Button>
 
@@ -101,7 +80,11 @@ export const Files = () => {
 				</div>
 			)}
 
-			<CreateFolder.Modal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+			<CreateFolder.Modal
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+				parentID={currentFileTree?.id}
+			/>
 		</DndContext>
 	);
 };

@@ -4,7 +4,13 @@ import { FormModalWrapper } from 'shared/ui';
 import { useCreateFolderInCurrenSpace } from '../../api/useCreateFolderInCurrentSpace';
 import type { TCreateFolderForm } from '../../model/createFolder';
 
-export const Form = () => {
+export type TFormProps = {
+	parentID?: string;
+};
+
+export const Form = (props: TFormProps) => {
+	const { parentID } = props;
+
 	const {
 		control,
 		formState: { isDirty },
@@ -20,7 +26,7 @@ export const Form = () => {
 
 	// TODO: then...
 	const handleSubmit = () => {
-		createFolder({ name: value });
+		createFolder({ name: value, parentID });
 	};
 
 	return (

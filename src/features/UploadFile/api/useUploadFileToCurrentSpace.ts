@@ -1,59 +1,56 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import type { IFile } from 'entities/File';
-import { axiosInstance } from 'shared/api';
-import { getApiResponseErrorMessage } from 'shared/lib';
-import type { ApiResponse } from 'shared/types';
+import { useApiRequest } from 'shared/hooks';
+import { sendApiRequest } from 'shared/lib';
 import type { TUploadFileForm } from '../model/file';
 
 type Props = TUploadFileForm & {
 	parentID?: IFile['id'];
 };
 
-// TODO: обработать возвращаемое значение
-type Response = ApiResponse<string>;
-
 export const useUploadFileToCurrentSpace = () => {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [error, setError] = useState<null | string>();
+	const { isLoading, error, execute } = useApiRequest<string>();
 
-	const uploadFile = useCallback(async (props: Props) => {
+	const [uploadPercent, setUploadPercent] = useState(0);
+
+	const uploadFile = (props: Props) => {
 		const { file, parentID } = props;
 
 		if (!file) {
 			return;
 		}
 
-		setIsLoading(true);
-		setError(null);
+		const formData = new FormData();
 
-		try {
-			const formData = new FormData();
+		formData.append('file', file);
 
-			formData.append('file', file);
-
-			if (parentID) {
-				formData.append('parentID', parentID);
-			}
-
-			const response = await axiosInstance.post<Response>('/files', formData);
-
-			return response.data.data;
-		} catch (error) {
-			const errorMessage =
-				getApiResponseErrorMessage(error) ||
-				'Произошла неизвестная ошибка при загрузке файла';
-
-			setError(errorMessage);
-
-			throw new Error(errorMessage);
-		} finally {
-			setIsLoading(false);
+		if (parentID) {
+			formData.append('parentID', parentID);
 		}
-	}, []);
+
+		// TODO: обработать возвращаемое значение
+		return execute(() =>
+			sendApiRequest<FormData, string>({
+				method: 'POST',
+				url: '/files',
+				data: formData,
+				config: {
+					onUploadProgress: (progressEvent) => {
+						const percent = Math.round(
+							(progressEvent.loaded * 100) / (progressEvent.total ?? 1),
+						);
+
+						setUploadPercent(percent);
+					},
+				},
+			}),
+		);
+	};
 
 	return {
 		isLoading,
 		error,
 		uploadFile,
+		uploadPercent,
 	};
 };
