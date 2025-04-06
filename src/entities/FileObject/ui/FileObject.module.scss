@@ -1,0 +1,50 @@
+.container {
+	align-items: center;
+	background-color: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+	display: flex;
+	flex-direction: column;
+	height: 150px;
+	justify-content: space-between;
+	margin: 8px;
+	padding: 10px;
+	transition: box-shadow 0.2s ease, opacity 0.2s ease;
+	width: 120px;
+
+	&:hover {
+		box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
+	}
+}
+
+.preview {
+	align-items: center;
+	display: flex;
+	height: 80px;
+	justify-content: center;
+	overflow: hidden;
+	width: 100%;
+}
+
+.imagePreview {
+	border-radius: 4px;
+	max-height: 100%;
+	max-width: 100%;
+	object-fit: cover;
+}
+
+.icon {
+	height: 48px;
+	width: 48px;
+}
+
+.filename {
+	font-size: 0.9rem;
+	margin-top: 4px;
+	overflow: hidden;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+}

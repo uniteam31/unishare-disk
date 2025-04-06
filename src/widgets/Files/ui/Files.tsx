@@ -82,7 +82,10 @@ export const Files = (props: Props) => {
 					<Flex onContextMenu={(event) => event.stopPropagation()}>
 						{currentFilesTree.children.map((file) => (
 							<ContextMenu items={fileContext} key={file.id}>
-								<div onClick={() => handleFileClick(file.name)}>
+								<div
+									onClick={() => handleFileClick(file.name)}
+									style={{ maxHeight: '200px' }}
+								>
 									<FileObject {...file} />
 								</div>
 							</ContextMenu>
