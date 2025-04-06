@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { Files } from 'widgets/Files';
 import { FilesActions } from 'widgets/FilesActions';
+import { FilesBreadcrumbs } from 'widgets/FilesBreadcrumbs/ui/FilesBreadcrumbs';
 import { useGetCurrentSpaceFilesTree } from 'entities/FileObject';
 import type { IFile } from 'entities/FileObject';
+import { getRelativeDiskPathname } from 'shared/lib';
 import { getCurrentFiles } from '../lib/getCurrentFilesTree';
-import { getRelativeDiskPathname } from '../lib/getRelativeDiskPathname';
 import s from './DiskPage.module.scss';
 
 export const DiskPage = () => {
@@ -35,7 +36,11 @@ export const DiskPage = () => {
 
 				<Separator orientation={'vertical'} size={'4'} />
 
-				<Files currentFilesTree={currentFilesTree} />
+				<Flex direction={'column'} width={'100%'}>
+					<FilesBreadcrumbs />
+
+					<Files currentFilesTree={currentFilesTree} />
+				</Flex>
 			</Flex>
 		</div>
 	);

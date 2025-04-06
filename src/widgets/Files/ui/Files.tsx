@@ -1,12 +1,11 @@
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
-import { Flex } from '@radix-ui/themes';
 import { useLocation, useNavigate } from 'react-router';
 import { mutate } from 'swr';
 import { useMoveFile } from 'features/MoveFile';
 import { FileObject } from 'entities/FileObject';
 import type { IFile } from 'entities/FileObject';
-import { ContextMenu } from 'shared/ui';
+import { ContextMenu, Flex } from 'shared/ui';
 
 /** Минимальное расстояние в пикселях для активации drag */
 const MINIMAL_MOVE_DISTANCE = 10;
@@ -79,18 +78,22 @@ export const Files = (props: Props) => {
 		<DndContext onDragEnd={handleDragEnd} sensors={sensors}>
 			{currentFilesTree && (
 				<ContextMenu items={contextMenuItems}>
-					<Flex onContextMenu={(event) => event.stopPropagation()}>
-						{currentFilesTree.children.map((file) => (
-							<ContextMenu items={fileContext} key={file.id}>
-								<div
-									onClick={() => handleFileClick(file.name)}
-									style={{ maxHeight: '200px' }}
-								>
-									<FileObject {...file} />
-								</div>
-							</ContextMenu>
-						))}
-					</Flex>
+					<div style={{ width: '100%', height: '100%' }}>
+						<div>
+							<Flex wrap={'wrap'} onContextMenu={(event) => event.stopPropagation()}>
+								{currentFilesTree.children.map((file) => (
+									<ContextMenu items={fileContext} key={file.id}>
+										<div>
+											<FileObject
+												{...file}
+												onClick={() => handleFileClick(file.name)}
+											/>
+										</div>
+									</ContextMenu>
+								))}
+							</Flex>
+						</div>
+					</div>
 				</ContextMenu>
 			)}
 		</DndContext>

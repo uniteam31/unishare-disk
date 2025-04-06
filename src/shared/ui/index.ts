@@ -27,3 +27,5 @@ export { Button, Separator, Card, Flex, Tooltip } from '@radix-ui/themes';
 export { FormModalWrapper } from './FormModalWrapper';
 
 export { ContextMenu } from './ContextMenu';
+
+export { Breadcrumbs } from './Breadcrumbs';

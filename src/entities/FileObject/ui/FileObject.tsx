@@ -20,6 +20,15 @@ export const FileObject = (props: Props) => {
 		transform,
 	} = useDraggable({ id });
 
+	const handleClick = () => {
+		if (url) {
+			window.location.href = url;
+			return;
+		}
+
+		onClick?.();
+	};
+
 	const { isOver, setNodeRef: setDroppableNodeRef } = useDroppable({ id });
 
 	const setNodeRef = (node: HTMLDivElement) => {
@@ -51,7 +60,7 @@ export const FileObject = (props: Props) => {
 			style={dynamicStyle}
 			{...listeners}
 			{...attributes}
-			onClick={onClick}
+			onClick={handleClick}
 		>
 			<div className={s.preview}>{renderPreview()}</div>
 
