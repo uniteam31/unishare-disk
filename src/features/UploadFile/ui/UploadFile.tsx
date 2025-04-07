@@ -1,5 +1,6 @@
+import { Flex } from '@radix-ui/themes';
 import type { ChangeEvent } from 'react';
-import { Button } from 'shared/ui';
+import { Button, Progress } from 'shared/ui';
 import { useUploadFileToCurrentSpace } from '../api/useUploadFileToCurrentSpace';
 
 type Props = {
@@ -20,7 +21,7 @@ export const UploadFile = (props: Props) => {
 
 		const file = event.target.files[0];
 
-		uploadFile({ file, parentID });
+		uploadFile({ file, parentID })?.then(() => (event.target.value = ''));
 	};
 
 	return (
@@ -28,6 +29,11 @@ export const UploadFile = (props: Props) => {
 			<Button onClick={() => document.getElementById('file-input')?.click()}>
 				Загрузить файл
 			</Button>
+
+			{/* TODO: DEBUG PROGRESS! */}
+			<Flex gap={'2'} align={'center'}>
+				<Progress value={uploadPercent} /> <span>{uploadPercent}%</span>
+			</Flex>
 
 			<input
 				id="file-input"

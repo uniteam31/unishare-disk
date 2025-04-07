@@ -1,4 +1,3 @@
-import { Flex, Separator } from '@radix-ui/themes';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { Files } from 'widgets/Files';
@@ -7,6 +6,7 @@ import { FilesBreadcrumbs } from 'widgets/FilesBreadcrumbs';
 import { useGetCurrentSpaceFilesTree } from 'entities/FileObject';
 import type { IFile } from 'entities/FileObject';
 import { getRelativeDiskPathname } from 'shared/lib';
+import { Flex, Separator } from 'shared/ui';
 import { getCurrentFiles } from '../lib/getCurrentFilesTree';
 import s from './DiskPage.module.scss';
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import type { IFile } from 'entities/FileObject';
 import { useApiRequest } from 'shared/hooks';
@@ -6,6 +7,12 @@ import type { TUploadFileForm } from '../model/file';
 
 type Props = TUploadFileForm & {
 	parentID?: IFile['id'];
+};
+
+type TUploadFileProps = {
+	name: string;
+	parentID?: IFile['id'];
+	type: string;
 };
 
 export const useUploadFileToCurrentSpace = () => {
@@ -20,31 +27,32 @@ export const useUploadFileToCurrentSpace = () => {
 			return;
 		}
 
-		const formData = new FormData();
-
-		formData.append('file', file);
-
-		if (parentID) {
-			formData.append('parentID', parentID);
-		}
-
 		// TODO: обработать возвращаемое значение
-		return execute(() =>
-			sendApiRequest<FormData, string>({
+		return execute(async () => {
+			/** Получаю подписанный url для загрузки файла в S3 */
+			const url = await sendApiRequest<TUploadFileProps, string>({
 				method: 'POST',
 				url: '/files',
-				data: formData,
-				config: {
-					onUploadProgress: (progressEvent) => {
-						const percent = Math.round(
-							(progressEvent.loaded * 100) / (progressEvent.total ?? 1),
-						);
-
-						setUploadPercent(percent);
-					},
+				data: {
+					name: file.name,
+					type: file.type,
+					parentID,
 				},
-			}),
-		);
+			});
+
+			/** Загружаю файл по подписанному url */
+			await axios.put(url, file, {
+				onUploadProgress: (progressEvent) => {
+					const percent = Math.round(
+						(progressEvent.loaded * 100) / (progressEvent.total ?? 1),
+					);
+
+					setUploadPercent(percent);
+				},
+			});
+
+			return 'HARDCODE';
+		});
 	};
 
 	return {
