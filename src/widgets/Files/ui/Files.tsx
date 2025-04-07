@@ -3,6 +3,7 @@ import type { DragEndEvent } from '@dnd-kit/core';
 import { MouseEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { mutate } from 'swr';
+import { CreateFolder } from 'features/CreateFolder';
 import { useMoveFile } from 'features/MoveFile';
 import { FileObject } from 'entities/FileObject';
 import type { IFile } from 'entities/FileObject';
@@ -20,6 +21,11 @@ export const Files = (props: Props) => {
 
 	const [selectedFilesIDs, setSelectedFilesIDs] = useState<IFile['id'][]>([]);
 	const [clickedFileID, setClickedFileID] = useState<IFile['id'] | null>();
+	const [isCreateFolderModal, setIsCreateFolderModal] = useState(false);
+
+	const handleCreateFolder = () => {
+		setIsCreateFolderModal((prev) => !prev);
+	};
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -75,54 +81,46 @@ export const Files = (props: Props) => {
 		}),
 	);
 
-	const contextMenuItems = [
+	const diskContextMenuItems = [
 		{
 			id: 'create-folder',
 			label: 'Создать папку',
-			onSelect: () => console.log('Создать папку'),
-		},
-		{
-			id: 'refresh',
-			label: 'Обновить',
-			onSelect: () => console.log('Обновить'),
+			onSelect: handleCreateFolder,
 		},
 	];
 
-	const fileContext = [
+	const fileContextMenuItems = [
 		{
 			id: 'delete-folder',
 			label: ' Удалить',
 			onSelect: () => console.log('Удалить'),
-		},
-		{
-			id: 'refdfdresh',
-			label: 'Обнdfdffdовить',
-			onSelect: () => console.log('Обновить'),
 		},
 	];
 
 	return (
 		<DndContext onDragEnd={handleDragEnd} sensors={sensors}>
 			{currentFilesTree && (
-				<ContextMenu items={contextMenuItems}>
+				<ContextMenu items={diskContextMenuItems}>
 					<div style={{ width: '100%', height: '100%' }} onClick={handleClickOutsideFile}>
-						<div>
-							<Flex wrap={'wrap'}>
-								{currentFilesTree.children.map((file) => (
-									<ContextMenu items={fileContext} key={file.id}>
-										<div onClick={(event) => event.stopPropagation()}>
-											<FileObject
-												{...file}
-												isSelected={selectedFilesIDs.includes(file.id)}
-												onClick={() => handleFileClick(file)}
-											/>
-										</div>
-									</ContextMenu>
-								))}
-							</Flex>
-						</div>
+						<Flex wrap={'wrap'}>
+							{currentFilesTree.children.map((file) => (
+								<ContextMenu items={fileContextMenuItems} key={file.id}>
+									<div onClick={(event) => event.stopPropagation()}>
+										<FileObject
+											{...file}
+											isSelected={selectedFilesIDs.includes(file.id)}
+											onClick={() => handleFileClick(file)}
+										/>
+									</div>
+								</ContextMenu>
+							))}
+						</Flex>
 					</div>
 				</ContextMenu>
+			)}
+
+			{isCreateFolderModal && (
+				<CreateFolder.Modal isOpen={isCreateFolderModal} onClose={handleCreateFolder} />
 			)}
 		</DndContext>
 	);
