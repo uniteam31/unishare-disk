@@ -1,0 +1,36 @@
+import { buildScssLoader } from './loaders/buildScssLoader';
+import { BuildOptions } from './types/config';
+
+export const BuildLoaders = ({ isDev }: BuildOptions) => {
+	const tsLoader = {
+		test: /\.tsx?$/,
+		use: 'ts-loader',
+		exclude: /node_modules/,
+	};
+
+	const scssLoader = buildScssLoader(isDev);
+
+	const sccLoader = {
+		test: /\.css$/i,
+		use: ['style-loader', 'css-loader'],
+	};
+
+	const babelLoader = {
+		test: /\.m?js$/,
+		exclude: /node_modules/,
+		use: {
+			loader: 'babel-loader',
+			options: {
+				presets: ['@babel/preset-env'],
+			},
+		},
+	};
+
+	const svgLoader = {
+		test: /\.svg$/i,
+		issuer: /\.[jt]sx?$/,
+		use: ['@svgr/webpack'],
+	};
+
+	return [svgLoader, babelLoader, tsLoader, sccLoader, scssLoader];
+};
