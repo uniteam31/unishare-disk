@@ -20,7 +20,7 @@ export const FilesActions = (props: Props) => {
 
 	return (
 		<div className={s.FilesActions}>
-			<Flex direction={'column'}>
+			<Flex direction={'column'} gap={'2'}>
 				<Button onClick={handleCreateFolderModal}>Создать папку</Button>
 				<UploadFile parentID={currentFilesTree?.id} />
 			</Flex>

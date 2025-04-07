@@ -7,5 +7,6 @@ export interface IFile extends TMeta {
 	ownerID: IUser['id'];
 	children: IFile[];
 	// TODO: сделать тип (content-type?)
+	/** Приходит в виде content-type из S3 */
 	type: string;
 }

@@ -1,8 +1,6 @@
-import { Button } from '@radix-ui/themes';
-import { ChangeEvent } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import type { ChangeEvent } from 'react';
+import { Button } from 'shared/ui';
 import { useUploadFileToCurrentSpace } from '../api/useUploadFileToCurrentSpace';
-import type { TUploadFileForm } from '../model/file';
 
 type Props = {
 	parentID?: string;
@@ -11,14 +9,9 @@ type Props = {
 export const UploadFile = (props: Props) => {
 	const { parentID } = props;
 
-	const { control, handleSubmit: handleContextSubmit } = useForm<TUploadFileForm>();
-
+	// TODO: добавить процент загрузки файла
 	// TODO: loaders and errors
 	const { uploadFile, uploadPercent } = useUploadFileToCurrentSpace();
-
-	const {
-		field: { value, onChange },
-	} = useController({ control, name: 'file' });
 
 	const handleChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
 		if (!event.target.files) {
@@ -27,22 +20,21 @@ export const UploadFile = (props: Props) => {
 
 		const file = event.target.files[0];
 
-		onChange(file);
-	};
-
-	// TODO: then catch!
-	const handleSubmit = () => {
-		uploadFile({ file: value, parentID });
+		uploadFile({ file, parentID });
 	};
 
 	return (
-		<form onSubmit={handleContextSubmit(handleSubmit)}>
-			{/* TODO: uncontrolled component! */}
-			<input type={'file'} onChange={handleChangeFile} />
+		<>
+			<Button onClick={() => document.getElementById('file-input')?.click()}>
+				Загрузить файл
+			</Button>
 
-			<div>{uploadPercent}</div>
-
-			<Button>Send</Button>
-		</form>
+			<input
+				id="file-input"
+				type="file"
+				onChange={handleChangeFile}
+				style={{ display: 'none' }}
+			/>
+		</>
 	);
 };

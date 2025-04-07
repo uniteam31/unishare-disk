@@ -49,7 +49,7 @@ export const FileObject = (props: Props) => {
 			return <FolderIcon className={s.icon} />;
 		}
 
-		if (type.includes('image') && url) {
+		if (type.split('/').includes('image') && url) {
 			return <img src={url} alt={name} className={s.imagePreview} />;
 		}
 
