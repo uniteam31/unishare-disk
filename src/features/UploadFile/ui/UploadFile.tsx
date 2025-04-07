@@ -1,5 +1,6 @@
 import { Flex } from '@radix-ui/themes';
 import type { ChangeEvent } from 'react';
+import { mutate } from 'swr';
 import { Button, Progress } from 'shared/ui';
 import { useUploadFileToCurrentSpace } from '../api/useUploadFileToCurrentSpace';
 
@@ -21,7 +22,10 @@ export const UploadFile = (props: Props) => {
 
 		const file = event.target.files[0];
 
-		uploadFile({ file, parentID })?.then(() => (event.target.value = ''));
+		uploadFile({ file, parentID })?.then(() => {
+			event.target.value = '';
+			mutate((key) => key === '/files');
+		});
 	};
 
 	return (

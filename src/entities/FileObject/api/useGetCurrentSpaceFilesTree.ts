@@ -10,6 +10,7 @@ export const useGetCurrentSpaceFilesTree = () => {
 	const fetcher = () =>
 		axiosInstance.get<Response>('/files').then((response) => response.data.data);
 
+	// TOOD: вынести все swr ключи!
 	const { data, error, mutate, isValidating } = useSWR('/files', fetcher);
 
 	const filesTree = data;
