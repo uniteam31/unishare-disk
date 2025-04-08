@@ -1,5 +1,5 @@
 import { ContextMenu as RadixContextMenu } from '@radix-ui/themes';
-import React from 'react';
+import type { ReactNode } from 'react';
 
 type MenuItem = {
 	id: string;
@@ -8,12 +8,14 @@ type MenuItem = {
 	disabled?: boolean;
 };
 
-type UniversalContextMenuProps = {
+type Props = {
 	items: MenuItem[];
-	children: React.ReactNode;
+	children: ReactNode;
 };
 
-export const ContextMenu: React.FC<UniversalContextMenuProps> = ({ items, children }) => {
+export const ContextMenu = (props: Props) => {
+	const { items, children } = props;
+
 	return (
 		<RadixContextMenu.Root>
 			<RadixContextMenu.Trigger>{children}</RadixContextMenu.Trigger>

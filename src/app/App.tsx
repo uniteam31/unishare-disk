@@ -7,24 +7,20 @@ import './styles/index.scss';
 import '@uniteam31/uni-shared-ui/dist/esm/global.scss';
 
 const App = () => {
-	// TODO: refactoring
+	/** Нужно, чтобы корректно встраиваться в хост */
 	const isRouter = useInRouterContext();
 
-	if (isRouter) {
-		return (
-			<Theme style={{ height: '100%', minHeight: 'unset' }}>
-				<DiskPage />
-			</Theme>
-		);
-	}
-
-	return (
+	const renderContent = () => (
 		<Theme style={{ height: '100%', minHeight: 'unset' }}>
-			<BrowserRouter>
-				<DiskPage />
-			</BrowserRouter>
+			<DiskPage />
 		</Theme>
 	);
+
+	if (!isRouter) {
+		return <BrowserRouter>{renderContent()}</BrowserRouter>;
+	}
+
+	return renderContent();
 };
 
 export default App;

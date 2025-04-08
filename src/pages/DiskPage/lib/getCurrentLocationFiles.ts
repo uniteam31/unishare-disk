@@ -1,10 +1,10 @@
 import type { IFile } from 'entities/FileObject';
 
 /**
- * @description Функция отдает файлы, которые доступны по текущей ссылке
+ * @description Функция отдает файлы, которые доступны по текущей ссылке из адресной строки
  * */
-export const getCurrentFiles = (filesTree: IFile, currentLocation: string) => {
-	if (currentLocation === '') {
+export const getCurrentLocationFiles = (filesTree: IFile, currentLocation: string) => {
+	if (!currentLocation) {
 		return filesTree;
 	}
 
@@ -15,8 +15,9 @@ export const getCurrentFiles = (filesTree: IFile, currentLocation: string) => {
 	let currentFile = filesTree;
 
 	for (const segment of splittedCurrentLocation) {
-		// TODO: добавить file.type === folder
-		const nextFile = currentFile.children.find((file) => file.name === segment);
+		const nextFile = currentFile.children?.find(
+			(file) => file.name === segment && file.type === 'folder',
+		);
 
 		// TODO: выкидывать ошибку
 		if (!nextFile) {

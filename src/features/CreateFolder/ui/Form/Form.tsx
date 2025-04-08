@@ -1,6 +1,5 @@
-import { TextField } from '@radix-ui/themes';
 import { useController, useFormContext } from 'react-hook-form';
-import { FormModalWrapper } from 'shared/ui';
+import { FormModalWrapper, TextField } from 'shared/ui';
 import { useCreateFolderInCurrenSpace } from '../../api/useCreateFolderInCurrentSpace';
 import type { TCreateFolderForm } from '../../model/createFolder';
 

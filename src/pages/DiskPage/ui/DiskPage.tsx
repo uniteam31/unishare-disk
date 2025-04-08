@@ -7,7 +7,7 @@ import { useGetCurrentSpaceFilesTree } from 'entities/FileObject';
 import type { IFile } from 'entities/FileObject';
 import { getRelativeDiskPathname } from 'shared/lib';
 import { Flex, Separator } from 'shared/ui';
-import { getCurrentFiles } from '../lib/getCurrentFilesTree';
+import { getCurrentLocationFiles } from '../lib/getCurrentLocationFiles';
 import s from './DiskPage.module.scss';
 
 export const DiskPage = () => {
@@ -24,7 +24,7 @@ export const DiskPage = () => {
 
 		const relativeDiskPathname = getRelativeDiskPathname(location.pathname);
 
-		const currentFiles = getCurrentFiles(filesTree, relativeDiskPathname);
+		const currentFiles = getCurrentLocationFiles(filesTree, relativeDiskPathname);
 
 		setCurrentFilesTree(currentFiles);
 	}, [filesTree, location.pathname]);

@@ -103,7 +103,7 @@ export const Files = (props: Props) => {
 				<ContextMenu items={diskContextMenuItems}>
 					<div style={{ width: '100%', height: '100%' }} onClick={handleClickOutsideFile}>
 						<Flex wrap={'wrap'}>
-							{currentFilesTree.children.map((file) => (
+							{currentFilesTree.children?.map((file) => (
 								<ContextMenu items={fileContextMenuItems} key={file.id}>
 									<div onClick={(event) => event.stopPropagation()}>
 										<FileObject

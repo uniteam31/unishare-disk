@@ -1,7 +1,6 @@
-import { Flex } from '@radix-ui/themes';
 import type { ChangeEvent } from 'react';
 import { mutate } from 'swr';
-import { Button, Progress } from 'shared/ui';
+import { Button, Progress, Flex } from 'shared/ui';
 import { useUploadFileToCurrentSpace } from '../api/useUploadFileToCurrentSpace';
 
 type Props = {

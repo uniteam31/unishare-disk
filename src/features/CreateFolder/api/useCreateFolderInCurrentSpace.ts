@@ -1,5 +1,4 @@
 import type { IFile } from 'entities/FileObject';
-import { IFolder } from 'entities/Folder';
 import { useApiRequest } from 'shared/hooks';
 import { sendApiRequest } from 'shared/lib';
 import type { TCreateFolderForm } from '../model/createFolder';
@@ -9,11 +8,11 @@ type Props = TCreateFolderForm & {
 };
 
 export const useCreateFolderInCurrenSpace = () => {
-	const { isLoading, error, execute } = useApiRequest<IFolder>();
+	const { isLoading, error, execute } = useApiRequest<IFile>();
 
 	const createFolder = (props: Props) => {
 		return execute(() =>
-			sendApiRequest<Props, IFolder>({
+			sendApiRequest<Props, IFile>({
 				method: 'POST',
 				url: '/files/folders',
 				data: props,
