@@ -1,0 +1,19 @@
+.FormModalWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: var(--medium-indent);
+	width: 300px;
+
+	.title {
+		margin-bottom: 20px;
+	}
+
+	.buttonsWrapper {
+		display: flex;
+	}
+
+	.error {
+		margin-bottom: var(--medium-indent);
+	}
+}

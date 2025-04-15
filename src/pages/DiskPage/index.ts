@@ -1,1 +1,1 @@
-export {DiskPage} from './ui/DiskPage';
+export { DiskPage } from './ui/DiskPage';

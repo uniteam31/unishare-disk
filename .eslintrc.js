@@ -8,9 +8,7 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 		'plugin:react/recommended',
 		'plugin:react-hooks/recommended',
-		'plugin:storybook/recommended',
 		'plugin:@conarti/feature-sliced/recommended',
-		'plugin:storybook/recommended',
 	],
 	overrides: [
 		{
@@ -40,5 +38,6 @@ module.exports = {
 		'react-hooks/exhaustive-deps': 'error',
 		'react/display-name': 'off',
 		'react/prop-types': 'off',
+		'@typescript-eslint/no-explicit-any': 'warn',
 	},
 };
