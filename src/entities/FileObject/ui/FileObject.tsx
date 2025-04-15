@@ -1,9 +1,9 @@
 import { useDraggable, useDroppable } from '@dnd-kit/core';
-import { Tooltip } from '@radix-ui/themes';
 import classNames from 'classnames';
 import type { CSSProperties } from 'react';
 import FileIcon from 'shared/assets/icons/file.svg';
 import FolderIcon from 'shared/assets/icons/folder.svg';
+import { Tooltip } from 'shared/ui';
 import type { IFile } from '../model/file';
 import s from './FileObject.module.scss';
 
