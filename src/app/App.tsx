@@ -11,7 +11,7 @@ const App = () => {
 	const isRouter = useInRouterContext();
 
 	const renderContent = () => (
-		<Theme style={{ height: '100%', minHeight: 'unset' }}>
+		<Theme style={{ height: '100%', minHeight: 'unset' }} radius={'large'}>
 			<div
 				// id нужен для отрисовки компонентов из radix в провайдере стилей
 				id={'content'}
