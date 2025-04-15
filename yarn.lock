@@ -917,7 +917,7 @@
   dependencies:
     tslib "^2.0.0"
 
-"@dnd-kit/core@^6.3.1":
+"@dnd-kit/core@6.3.1":
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/@dnd-kit/core/-/core-6.3.1.tgz#4c36406a62c7baac499726f899935f93f0e6d003"
   integrity sha512-xkGBRQQab4RLwgXxoqETICr6S5JlogafbhNsidmrkVv2YRs5MLwpjoF2qpiGjQt8S9AoxtIV603s0GIUpY5eYQ==
@@ -2419,7 +2419,7 @@
   resolved "https://npm.pkg.github.com/download/@uniteam31/uni-shared-types/0.0.7/f9f9d74bb6edf2c4990be48c2f1d3a872f465f7c#f9f9d74bb6edf2c4990be48c2f1d3a872f465f7c"
   integrity sha512-YtqXApyOcmYcK1njVMREy+CtUpStnZ2Ui4rP8OQ7/VFQRRXzgg61Ac567aKSsMbBONlCgRAu6o6ginHIacggMQ==
 
-"@uniteam31/uni-shared-ui@0.0.20":
+"@uniteam31/uni-shared-ui@0.0.21":
   version "0.0.20"
   resolved "https://npm.pkg.github.com/download/@uniteam31/uni-shared-ui/0.0.20/dc9f49ef77df9020747a8b86c4923de3e21b2176#dc9f49ef77df9020747a8b86c4923de3e21b2176"
   integrity sha512-O2gHC8t/EZWbbztxCI/Vw9WGK5xkhbTZ+0IhbDKMTbdyS4JOVTaQWqA2I5JDBjmYGv9T9fcOl8EmWKwOiPfFaw==
@@ -2824,6 +2824,13 @@ axios@1.7.9:
     follow-redirects "^1.15.6"
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
+
+babel-loader@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-10.0.0.tgz#b9743714c0e1e084b3e4adef3cd5faee33089977"
+  integrity sha512-z8jt+EdS61AMw22nSfoNJAZ0vrtmhPRVi6ghL3rCeRZI8cdNYFiV5xeV3HbE7rlZZNmGH8BVccwWt8/ED0QOHA==
+  dependencies:
+    find-up "^5.0.0"
 
 babel-plugin-polyfill-corejs2@^0.4.10:
   version "0.4.13"

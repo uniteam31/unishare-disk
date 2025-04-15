@@ -15,7 +15,7 @@ export const Modal = (props: Props) => {
 	const methods = useForm();
 
 	return (
-		<ModalUI isOpen={isOpen} onClose={onClose}>
+		<ModalUI isOpen={isOpen} onClose={onClose} element={document.getElementById('content')}>
 			<FormWrapper methods={methods}>
 				<Form parentID={parentID} />
 			</FormWrapper>

@@ -3,9 +3,7 @@ import { useApiRequest } from 'shared/hooks';
 import { sendApiRequest } from 'shared/lib';
 import type { TCreateFolderForm } from '../model/createFolder';
 
-type Props = TCreateFolderForm & {
-	parentID?: IFile['id'];
-};
+type Props = TCreateFolderForm & Partial<Pick<IFile, 'parentID'>>;
 
 export const useCreateFolderInCurrenSpace = () => {
 	const { isLoading, error, execute } = useApiRequest<IFile>();

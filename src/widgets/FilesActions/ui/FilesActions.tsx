@@ -25,11 +25,13 @@ export const FilesActions = (props: Props) => {
 				<UploadFile parentID={currentFilesTree?.id} />
 			</Flex>
 
-			<CreateFolder.Modal
-				isOpen={isCreateFolderModal}
-				onClose={handleCreateFolderModal}
-				parentID={currentFilesTree?.id}
-			/>
+			{isCreateFolderModal && (
+				<CreateFolder.Modal
+					isOpen={isCreateFolderModal}
+					onClose={handleCreateFolderModal}
+					parentID={currentFilesTree?.id}
+				/>
+			)}
 		</div>
 	);
 };

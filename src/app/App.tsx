@@ -12,7 +12,13 @@ const App = () => {
 
 	const renderContent = () => (
 		<Theme style={{ height: '100%', minHeight: 'unset' }}>
-			<DiskPage />
+			<div
+				// id нужен для отрисовки компонентов из radix в провайдере стилей
+				id={'content'}
+				style={{ height: '100%', width: '100%' }}
+			>
+				<DiskPage />
+			</div>
 		</Theme>
 	);
 
