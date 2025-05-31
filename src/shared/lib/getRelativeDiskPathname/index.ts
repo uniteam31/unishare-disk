@@ -1,0 +1,1 @@
+export { getRelativeDiskPathname } from './getRelativeDiskPathname';
